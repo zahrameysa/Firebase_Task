@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "996378770096",
+    "project_id": "fir-task-bea53",
+    "storage_bucket": "fir-task-bea53.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996378770096:android:384e0983208078ed181975",
+        "android_client_info": {
+          "package_name": "com.example.firebasetask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPkkcyKK_erv6snQ2fz7Rha1YDfqSH_rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996378770096:android:92898dae1121e0d3181975",
+        "android_client_info": {
+          "package_name": "com.firebasetask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPkkcyKK_erv6snQ2fz7Rha1YDfqSH_rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
