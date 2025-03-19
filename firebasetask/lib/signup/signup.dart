@@ -102,50 +102,32 @@ class SignUpScreen extends StatelessWidget {
               },
               child: Text("Sign Up"),
             ),
-
             SizedBox(height: 24),
 
+            // Menghapus "Or Sign in with Google"
             Center(
-              child: Text(
-                "Or Sign in with",
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-            SizedBox(height: 24),
-
-            Container(
-              padding: EdgeInsets.all(16),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/images/google.png", height: 16),
-                  SizedBox(width: 8),
-                  Text("Google", style: TextStyle(fontSize: 14)),
-                ],
-              ),
-            ),
-            SizedBox(height: 24),
-
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  text: "Already Have Account? ",
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
-                  children: [
-                    TextSpan(
-                      text: 'Log In',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+              child: GestureDetector(
+                onTap: () {
+                  // Pindah ke halaman Login saat "Log In" ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: "Already Have Account? ",
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    children: [
+                      TextSpan(
+                        text: 'Log In',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -154,31 +136,4 @@ class SignUpScreen extends StatelessWidget {
       ),
     );
   }
-
-  // void _signUp() async {
-  // print("Sign Up button pressed"); // Debugging log
-
-  // String email = _emailController.text.trim();
-  // String password = _passwordController.text.trim();
-
-  // if (email.isEmpty || password.isEmpty) {
-  //   print("Email or password is empty");
-  //   return;
-  // } else {
-  //   try {
-  //     final user = await AuthService().signup(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     if (user != null) {
-  //         // Navigator.pushReplacement(
-  //         //   context,
-  //         //   MaterialPageRoute(builder: (context) => LoginScreen()),
-  //         // );
-  //     }
-  //     print("Sign Up success");
-  //   } catch (e) {
-  //     print("Error during Sign Up: $e");
-  //   }
-  // }
 }

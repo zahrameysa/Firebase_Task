@@ -1,16 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? get currentUser => _auth.currentUser;
 
-
   /// Fungsi untuk Sign Up (Mendaftar akun baru)
-  Future<User?> signup({required String email, required String password}) async {
+  Future<User?> signup({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       Fluttertoast.showToast(
         msg: "Sign Up Successful!",
         toastLength: Toast.LENGTH_LONG,
@@ -50,7 +56,10 @@ class AuthService {
   }
 
   /// Fungsi untuk Sign In (Login)
-  Future<User?> signIn({required String email, required String password}) async {
+  Future<User?> signIn({
+    required String email,
+    required String password,
+  }) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Fluttertoast.showToast(
@@ -114,6 +123,24 @@ class AuthService {
         fontSize: 14,
       );
     }
+  }
+
+  //Fungsi untuk Log In with Google
+  Future<UserCredential?> loginWithGoogle() async {
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+
+      final googleAuth = await googleUser?.authentication;
+
+      final cred = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken,
+        accessToken: googleAuth?.accessToken,
+      );
+      return await _auth.signInWithCredential(cred);
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
   }
 
   /// Fungsi untuk mendapatkan status pengguna saat ini

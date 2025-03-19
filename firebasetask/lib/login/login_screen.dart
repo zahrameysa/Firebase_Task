@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasetask/screens/home_screen.dart';
+import 'package:firebasetask/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -155,22 +158,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 24),
 
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset("assets/images/google.png", height: 16),
-                        SizedBox(width: 8),
-                        Text("Google", style: TextStyle(fontSize: 14)),
-                      ],
+                  GestureDetector(
+                    onTap: () async {
+                      print("Google Sign-In button pressed");
+                      await AuthService().loginWithGoogle();
+
+                      // Ambil user dari Firebase
+                      final user = FirebaseAuth.instance.currentUser;
+                      if (user != null) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ), // Ganti dengan halaman utama
+                        );
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/images/google.png", height: 16),
+                          SizedBox(width: 8),
+                          Text("Google", style: TextStyle(fontSize: 14)),
+                        ],
+                      ),
                     ),
                   ),
+
                   SizedBox(height: 24),
 
                   RichText(

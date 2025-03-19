@@ -12,7 +12,12 @@
           "package_name": "com.example.firebasetask"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "996378770096-ud7nlo9r7dm9baht6t6j6dcv3kcf0ufb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCPkkcyKK_erv6snQ2fz7Rha1YDfqSH_rs"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996378770096-ud7nlo9r7dm9baht6t6j6dcv3kcf0ufb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "996378770096-16tk8uruhepmf3dhivgh0n0og1reio2n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firebasetask"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.firebasetask"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "996378770096-ih0k04jqdl3le31383odp962dbkfupav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firebasetask",
+            "certificate_hash": "e3fb90dcd50174703d1dc3dba401c01cb98845e9"
+          }
+        },
+        {
+          "client_id": "996378770096-ud7nlo9r7dm9baht6t6j6dcv3kcf0ufb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCPkkcyKK_erv6snQ2fz7Rha1YDfqSH_rs"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996378770096-ud7nlo9r7dm9baht6t6j6dcv3kcf0ufb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "996378770096-16tk8uruhepmf3dhivgh0n0og1reio2n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firebasetask"
+              }
+            }
+          ]
         }
       }
     }
