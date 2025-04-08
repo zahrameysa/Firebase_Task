@@ -50,11 +50,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCPkkcyKK_erv6snQ2fz7Rha1YDfqSH_rs',
-    appId: '1:996378770096:android:92898dae1121e0d3181975',
-    messagingSenderId: '996378770096',
-    projectId: 'fir-task-bea53',
-    storageBucket: 'fir-task-bea53.firebasestorage.app',
+    apiKey: 'AIzaSyAE3Q3MpbAEYfbOOpmmsLSWjpBMKh-5TGc',
+    appId: '1:350815746161:android:b46b2ae6bdc78a5182c3d0',
+    messagingSenderId: '350815746161',
+    projectId: 'ppkd-mp',
+    storageBucket: 'ppkd-mp.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '996378770096',
     projectId: 'fir-task-bea53',
     storageBucket: 'fir-task-bea53.firebasestorage.app',
-    iosBundleId: 'com.firebasetask',
+    iosBundleId: 'com.smartresident',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,15 +72,17 @@ class DefaultFirebaseOptions {
     messagingSenderId: '996378770096',
     projectId: 'fir-task-bea53',
     storageBucket: 'fir-task-bea53.firebasestorage.app',
-    iosBundleId: 'com.firebasetask',
+    iosBundleId: 'com.smartresident',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDQUR2ifhF3dCXIKjNVpRUtyybJItr5tqw',
-    appId: '1:996378770096:web:a9f0bbd5d86f582f181975',
-    messagingSenderId: '996378770096',
-    projectId: 'fir-task-bea53',
-    authDomain: 'fir-task-bea53.firebaseapp.com',
-    storageBucket: 'fir-task-bea53.firebasestorage.app',
+    apiKey: 'AIzaSyBCNgSZW6BYG-PPa7SL7E4MUB8uttOQH20',
+    appId: '1:350815746161:web:3bf71604bbd266cf82c3d0',
+    messagingSenderId: '350815746161',
+    projectId: 'ppkd-mp',
+    authDomain: 'ppkd-mp.firebaseapp.com',
+    storageBucket: 'ppkd-mp.firebasestorage.app',
+    measurementId: 'G-BPM82H0L8P',
   );
+
 }

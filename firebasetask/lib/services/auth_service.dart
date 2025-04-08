@@ -13,10 +13,8 @@ class AuthService {
     required String password,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       Fluttertoast.showToast(
         msg: "Sign Up Successful!",
         toastLength: Toast.LENGTH_LONG,
@@ -25,6 +23,7 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {
@@ -42,8 +41,9 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return null;
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
       Fluttertoast.showToast(
         msg: "An unexpected error occurred. Please try again.",
         toastLength: Toast.LENGTH_LONG,
@@ -52,6 +52,7 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return null;
     }
   }
 
@@ -61,7 +62,10 @@ class AuthService {
     required String password,
   }) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       Fluttertoast.showToast(
         msg: "Login Successful!",
         toastLength: Toast.LENGTH_LONG,
@@ -70,6 +74,7 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'user-not-found') {
@@ -87,8 +92,9 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return null;
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
       Fluttertoast.showToast(
         msg: "An unexpected error occurred. Please try again.",
         toastLength: Toast.LENGTH_LONG,
@@ -97,6 +103,7 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14,
       );
+      return null;
     }
   }
 
@@ -113,7 +120,7 @@ class AuthService {
         fontSize: 14,
       );
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
       Fluttertoast.showToast(
         msg: "Logout failed. Please try again.",
         toastLength: Toast.LENGTH_LONG,
@@ -125,22 +132,22 @@ class AuthService {
     }
   }
 
-  //Fungsi untuk Log In with Google
+  // Fungsi untuk Log In with Google
   Future<UserCredential?> loginWithGoogle() async {
     try {
       final googleUser = await GoogleSignIn().signIn();
-
       final googleAuth = await googleUser?.authentication;
 
       final cred = GoogleAuthProvider.credential(
         idToken: googleAuth?.idToken,
         accessToken: googleAuth?.accessToken,
       );
+
       return await _auth.signInWithCredential(cred);
     } catch (e) {
-      print(e.toString());
+      debugPrint("Google Sign-In Error: $e");
+      return null;
     }
-    return null;
   }
 
   /// Fungsi untuk mendapatkan status pengguna saat ini

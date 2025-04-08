@@ -1,4 +1,4 @@
-package com.firebasetask
+package com.smartresident
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -6,6 +6,7 @@ import 'package:firebasetask/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebasetask/screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignUpScreen(),
         '/home': (context) => HomeScreen(),
         '/settings': (context) => SettingsScreen(), // Rute ke Settings
+        '/profile': (context) => const ProfileScreen(),
       },
       home: const AuthWrapper(),
     );
