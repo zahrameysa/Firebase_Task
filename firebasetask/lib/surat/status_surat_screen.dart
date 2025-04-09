@@ -1,8 +1,50 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Untuk format tanggal
+import 'edit_surat_screen.dart'; // Pastikan file ini mengarah ke halaman edit sebenarnya
 
 class StatusSuratScreen extends StatelessWidget {
   const StatusSuratScreen({super.key});
+
+  void _hapusSurat(String docId, BuildContext context) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('pengajuan_surat')
+          .doc(docId)
+          .delete();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Surat berhasil dihapus')));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Gagal menghapus surat')));
+    }
+  }
+
+  void _konfirmasiHapus(BuildContext context, String docId) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text('Hapus Surat'),
+            content: Text('Yakin ingin menghapus pengajuan surat ini?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context), // Batal
+                child: Text('Batal'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // Tutup dialog
+                  _hapusSurat(docId, context); // Hapus data
+                },
+                child: Text('Hapus', style: TextStyle(color: Colors.red)),
+              ),
+            ],
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +55,7 @@ class StatusSuratScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Status Pengajuan Surat')),
       body: StreamBuilder<QuerySnapshot>(
-        stream: suratRef.snapshots(),
+        stream: suratRef.orderBy('tanggal', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -31,12 +73,33 @@ class StatusSuratScreen extends StatelessWidget {
               final surat = daftarSurat[index].data() as Map<String, dynamic>;
               final docId = daftarSurat[index].id;
 
+              // ✅ Perbaikan: konversi Timestamp ke DateTime
+              final Timestamp? timestamp = surat['tanggal'];
+              final DateTime? tanggal = timestamp?.toDate();
+
+              final String tanggalFormatted =
+                  tanggal != null
+                      ? DateFormat(
+                        'dd MMMM yyyy • HH:mm',
+                        'id_ID',
+                      ).format(tanggal)
+                      : 'Tanggal tidak tersedia';
+
               return Card(
                 elevation: 2,
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: Text(surat['jenisSurat'] ?? ''),
-                  subtitle: Text('Tanggal: ${surat['tanggal']}'),
+                  title: Text(
+                    surat['nama'] ?? 'Tanpa Nama',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Jenis Surat: ${surat['jenisSurat'] ?? '-'}"),
+                      Text("Tanggal: $tanggalFormatted"),
+                    ],
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -60,11 +123,15 @@ class StatusSuratScreen extends StatelessWidget {
                               builder:
                                   (context) => EditSuratScreen(
                                     docId: docId,
-                                    dataSurat: surat,
+                                    suratData: surat,
                                   ),
                             ),
                           );
                         },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () => _konfirmasiHapus(context, docId),
                       ),
                     ],
                   ),
@@ -73,29 +140,6 @@ class StatusSuratScreen extends StatelessWidget {
             },
           );
         },
-      ),
-    );
-  }
-}
-
-// Dummy halaman edit
-class EditSuratScreen extends StatelessWidget {
-  final String docId;
-  final Map<String, dynamic> dataSurat;
-
-  const EditSuratScreen({
-    super.key,
-    required this.docId,
-    required this.dataSurat,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Edit Surat')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text('Edit surat: ${dataSurat['jenis']} (ID: $docId)'),
       ),
     );
   }

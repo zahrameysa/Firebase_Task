@@ -61,7 +61,8 @@ class _FormPengajuanSuratScreenState extends State<FormPengajuanSuratScreen> {
 
       data['jenisSurat'] = widget.jenisSurat;
       data['status'] = 'Diproses';
-      data['tanggal'] = DateTime.now().toIso8601String();
+      data['tanggal'] =
+          FieldValue.serverTimestamp(); // Diganti dengan Timestamp
 
       try {
         await FirebaseFirestore.instance
@@ -86,7 +87,12 @@ class _FormPengajuanSuratScreenState extends State<FormPengajuanSuratScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Form ${widget.jenisSurat}")),
+      appBar: AppBar(
+        title: Text(
+          "Form ${widget.jenisSurat}",
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Form(
